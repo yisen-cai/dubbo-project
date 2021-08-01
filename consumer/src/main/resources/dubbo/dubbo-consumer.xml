@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+  <description>在SpringBoot中依然可以使用Xml配置Bean</description>
+  <dubbo:application name="dubbo-project-consumer"/>
+  <!--http://dubbo.apache.org/zh-cn/docs/user/references/xml/dubbo-application.html
+  dubbo信息配置
+  name消费者和提供者名字不需要一样，作为应用名字用于注册中心计算依赖关系
+  version当前应用版本
+  -->
+  <!--<dubbo:application name="qfc-demo-server" owner="chongran" organization="qfc"/>-->
+  <!--http://dubbo.apache.org/zh-cn/docs/user/references/xml/dubbo-registry.html
+  注册dubbo服务
+  id用于引用此Bean
+  address配置注册中心地址，也就是zookeeper地址
+  protocol支持dubbo,zookeeper,redis,等多种协议，同一服务可注册到多种协议上，消费者也可消费指定协议上的服务
+  port注册中心接口，默认是9090
+  username/password 当注册中心需要验证时需要配置
+  transport 网络传输方式mina netty
+  timeout注册中心请求超时时间，毫秒
+  session注册中心会话超时时间，检测provider健康度，相当于心跳检测
+  file文件缓存注册中心配置和消费者信息
+  check当注册中心不存在时是否报错
+  register是否向注册中心注册服务，false是只订阅不注册
+  subscribe是否订阅，false是只注册不订阅
+  group 注册服务分组，跨组服务不会相互影响也不会相互调用，消费者也需要用此分组
+  -->
+  <dubbo:registry address="N/A"/>
+  <!--http://dubbo.apache.org/zh-cn/docs/user/references/xml/dubbo-protocol.html
+  协议配置
+  id用于引用此Bean
+  name=dubbo 协议名称，还可支持rmi http等
+  port是服务默认暴露端口
+  host服务主机名，取本机ip 不填即可
+  threadpool 线程池类型 fixed
+  threads 线程池大小
+  register 服务是否注册到注册中心
+  -->
+  <!--<dubbo:protocol id="provider-protocol" name="dubbo" port="20881"/>-->
+  <!--http://dubbo.apache.org/zh-cn/docs/user/references/xml/dubbo-provider.html
+  服务提供缺省配置
+  id用于引用此bean
+  protocol协议名称
+  -->
+  <!--<dubbo:provider>-->
+  <!--<dubbo:parameter key="qloglevel" value="8"></dubbo:parameter>-->
+  <!--</dubbo:provider>-->
+
+  <!--dubbo也支持定义全局的超时时间-->
+  <dubbo:consumer timeout="2000"/>
+  <!--服务消费接口
+  retries 重试次数
+  timeout超时时间
+  check 是否检查提供者存在性，true时候报错
+  version必须与提供者版本一致
+  url 跳过注册中心直连
+  -->
+  <dubbo:reference id="demoService"
+                   interface="com.qunar.training.service.DemoService"
+                   url="dubbo://127.0.0.1:20880"
+                   retries="10"
+                   timeout="10000"
+                   check="false"
+  />
+
+</beans>

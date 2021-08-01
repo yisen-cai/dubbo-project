@@ -1,0 +1,24 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+
+  <description>XML load bean</description>
+
+  <dubbo:application name="dubbo-project-provider"/>
+
+  <dubbo:registry id="dubbo-project" address="N/A" group="qunar-training" register="false"/>
+
+  <dubbo:protocol id="provider-protocol" name="dubbo" host="127.0.0.1" port="20880" threadpool="fixed" threads="20"/>
+
+  <dubbo:provider>
+    <!--<dubbo:parameter key="" value=""/>-->
+  </dubbo:provider>
+
+  <dubbo:service interface="com.qunar.training.service.DemoService"
+                 ref="demoServiceImpl"
+                 version="1.0"
+                 protocol="provider-protocol"
+  />
+</beans>

@@ -1,0 +1,86 @@
+# 共有8个级别，按照从低到高为：ALL < TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF。
+#https://wiki.corp.qunar.com/confluence/pages/viewpage.action?pageId=365888587#id-课程讲义C-Spring的一些开发工具包，切面，配置文件，JDBC，Dubbo-日志
+Configuration:
+  status: info
+  properties:
+    property:
+      - name: logDir
+        value: /var/log/java/application
+      - name: defaultPattern
+        value: "[%d{yyyy-MM-dd HH:mm:ss.SSS}][%p][%C:%L] %m%n"
+      - name: defaultCharset
+        value: UTF-8
+  appenders:
+    Console:
+      name: console
+      PatternLayout:
+        Pattern: "${defaultPattern}"
+        Charset: "${defaultCharset}"
+      Filters:
+        ThresholdFilter:
+          level: info
+    RollingFile:
+      - name: dbLogAppender
+        fileName: "${logDir}/db.log"
+        filePattern: "${logDir}/db.%d{yyyy-MM-dd}.log.gz"
+        PatternLayout:
+          Pattern: "${defaultPattern}"
+          Charset: "${defaultCharset}"
+        Policies:
+          TimeBasedTriggeringPolicy: {}
+        Filters:
+          ThresholdFilter:
+            level: info
+      - name: businessAllAppender
+        fileName: "${logDir}/base.log"
+        filePattern: "${logDir}/base.%d{yyyy-MM-dd}.log.gz"
+        PatternLayout:
+          Pattern: "${defaultPattern}"
+          Charset: "${defaultCharset}"
+        Policies:
+          TimeBasedTriggeringPolicy: {}
+        Filters:
+          ThresholdFilter:
+            level: info
+      - name: interactionRequestAppender
+        fileName: "${logDir}/interaction.log"
+        filePattern: "${logDir}/interaction.%d{yyyy-MM-dd}.log.gz"
+        PatternLayout:
+          Pattern: "${defaultPattern}"
+          Charset: "${defaultCharset}"
+        Policies:
+          TimeBasedTriggeringPolicy: {}
+        Filters:
+          ThresholdFilter:
+            level: info
+      - name: errorLogAppender
+        fileName: "${logDir}/error.log"
+        filePattern: "${logDir}/error.%d{yyyy-MM-dd}.log.gz"
+        PatternLayout:
+          Pattern: "${defaultPattern}"
+          Charset: "${defaultCharset}"
+        Policies:
+          TimeBasedTriggeringPolicy: {}
+        Filters:
+          ThresholdFilter:
+            level: warn
+  Loggers:
+    logger:
+      - name: com.qunar
+        level: info
+        additivity: false
+        AppenderRef:
+          - ref: console
+          - ref: businessAllAppender
+      - name: com.qunar.qfc.qfcspring1_3.store
+        level: info
+        additivity: false
+        AppenderRef:
+          - ref: console
+          - ref: dbLogAppender
+          - ref: errorLogAppender
+    Root:
+      level: info
+      AppenderRef:
+        - ref: console
+        - ref: errorLogAppender
