@@ -4,7 +4,8 @@
        xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
 
-  <description>在SpringBoot中依然可以使用Xml配置Bean</description>
+  <description>dubbo-consumer</description>
+
   <dubbo:application name="dubbo-project-consumer"/>
   <!--http://dubbo.apache.org/zh-cn/docs/user/references/xml/dubbo-application.html
   dubbo信息配置
@@ -28,7 +29,8 @@
   subscribe是否订阅，false是只注册不订阅
   group 注册服务分组，跨组服务不会相互影响也不会相互调用，消费者也需要用此分组
   -->
-  <dubbo:registry address="N/A"/>
+  <!--  group dubbo -->
+  <dubbo:registry address="zookeeper://glancebar.com:2181" timeout="100000" group="dubbo"/>
   <!--http://dubbo.apache.org/zh-cn/docs/user/references/xml/dubbo-protocol.html
   协议配置
   id用于引用此Bean
@@ -60,10 +62,8 @@
   -->
   <dubbo:reference id="demoService"
                    interface="com.qunar.training.service.DemoService"
-                   url="dubbo://127.0.0.1:20880"
-                   retries="10"
-                   timeout="10000"
                    check="false"
+                   version="1.0"
+                   protocol="provider-protocol"
   />
-
 </beans>

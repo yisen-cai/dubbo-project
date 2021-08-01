@@ -13,6 +13,7 @@
   <artifactId>provider</artifactId>
   <name>provider</name>
   <description>provider</description>
+  <packaging>war</packaging>
 
 
   <properties>
@@ -39,6 +40,17 @@
       <artifactId>spring-boot-starter-log4j2</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>org.apache.curator</groupId>
+      <artifactId>curator-framework</artifactId>
+      <version>5.1.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.curator</groupId>
+      <artifactId>curator-recipes</artifactId>
+      <version>5.1.0</version>
+    </dependency>
 
     <dependency>
       <!-- 加上这个才能辨认到log4j2.yml文件 -->
@@ -150,12 +162,21 @@
     </dependencies>
   </dependencyManagement>
 
+
   <build>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <version>${maven-compiler-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
       </plugin>
     </plugins>
   </build>

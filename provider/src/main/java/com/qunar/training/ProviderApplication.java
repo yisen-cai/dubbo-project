@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ImportResource;
 
 
 /**
- * Spring boot入口文件
+ * Spring boot入口文件, 上面添加扫描Dubbo的包注解和解析Bean的配置文件
  *
  * @author YISHEN CAI
  */
