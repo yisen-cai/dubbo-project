@@ -9,6 +9,12 @@ server:
       force: true
       charset: UTF-8
 
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  config-location: classpath:mybatis/mybatis-config.xml
+  type-aliases-package: com.qunar.training
+
+
 spring:
   aop:
     proxy-target-class: true
@@ -24,3 +30,4 @@ spring:
 # 共有8个级别，按照从低到高为：ALL < TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF。
 logging:
   config: classpath:log4j2.yml
+

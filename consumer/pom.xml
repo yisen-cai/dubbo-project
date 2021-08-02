@@ -39,6 +39,12 @@
       <groupId>org.apache.curator</groupId>
       <artifactId>curator-framework</artifactId>
       <version>5.1.0</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -119,7 +125,7 @@
 
     <dependency>
       <groupId>com.qunar.training</groupId>
-      <artifactId>commons</artifactId>
+      <artifactId>api</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>
